@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-import os
 import openlit
 from fastapi.middleware.cors import CORSMiddleware
 from apis.router.v1_router import v1_router
