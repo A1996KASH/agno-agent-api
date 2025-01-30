@@ -1,20 +1,19 @@
 from typing import Optional
 
-from phi.agent import Agent
-from phi.model.openai import OpenAIChat
-from phi.knowledge.agent import AgentKnowledge
-from phi.storage.agent.postgres import PgAgentStorage
-from phi.tools.duckduckgo import DuckDuckGo
-from phi.vectordb.pgvector import PgVector, SearchType
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.knowledge.agent import AgentKnowledge
+from agno.storage.agent.postgres import PostgresAgentStorage
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.vectordb.pgvector import PgVector, SearchType
 
 from agents.settings import agent_settings
 from settings.settings import settings
 
-example_agent_storage = PgAgentStorage(table_name="example_agent_sessions", db_url=settings.db_url)
+example_agent_storage = PostgresAgentStorage(table_name="example_agent_sessions", db_url=settings.db_url)
 example_agent_knowledge = AgentKnowledge(
     vector_db=PgVector(table_name="example_agent_knowledge", db_url=settings.db_url, search_type=SearchType.hybrid)
 )
-
 
 def get_example_agent(
     model_id: Optional[str] = None,
@@ -32,9 +31,10 @@ def get_example_agent(
             id=model_id or agent_settings.gpt_4,
             max_tokens=agent_settings.default_max_completion_tokens,
             temperature=agent_settings.default_temperature,
+            api_key=settings.openai_api_key,
         ),
         # Tools available to the agent
-        tools=[DuckDuckGo()],
+        tools=[DuckDuckGoTools()],
         # A description of the agent that guides its overall behavior
         description="You are a highly advanced AI agent with access to an extensive knowledge base and powerful web-search capabilities.",
         # A list of instructions to follow, each as a separate item in the list
