@@ -75,4 +75,4 @@ uvloop==0.21.0
 watchfiles==0.24.0
 websockets==13.1
 openlit==1.33.4
-agno=1.0.0
+agno~=1.0.0

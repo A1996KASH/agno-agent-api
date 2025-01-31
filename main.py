@@ -3,7 +3,7 @@ import openlit
 from fastapi.middleware.cors import CORSMiddleware
 from apis.router.v1_router import v1_router
 from settings.settings import settings
-
+from sockets.socket_server import sio_app
 
 def create_app() -> FastAPI:
     """
@@ -16,7 +16,7 @@ def create_app() -> FastAPI:
         redoc_url=None if settings.environment == "production" else "/redoc",
         openapi_url=None if settings.environment == "production" else "/openapi.json",
     )
-
+    app.mount("/socket.io", sio_app)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
