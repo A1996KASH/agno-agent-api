@@ -77,3 +77,4 @@ websockets==13.1
 openlit==1.33.4
 agno~=1.0.0
 python-socketio==5.12.1
+celery==5.4.0

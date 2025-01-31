@@ -81,6 +81,10 @@ cp .env.example .env
 ```bash
 fastapi dev main.py
 ```
+### start celery worker
+```bash
+celery -A jobqueue.celery_worker.celery_app worker --loglevel=debug
+```
 
 The API will be available at `http://localhost:8000` by default.
 
